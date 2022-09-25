@@ -9,6 +9,7 @@ def process_array(num, arr):
     print(arr)
     print("\nPositive Output:\n")
     # TODO add new code here to print the desired result
+    print([str(abs(int(ele))) if type(ele) == str else abs(ele) for ele in arr ])
 
 
 print("Problem 3")
