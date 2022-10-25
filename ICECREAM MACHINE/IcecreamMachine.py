@@ -14,7 +14,7 @@ class Usable:
         self.quantity = quantity
         self.cost = cost
 
-    # UCID: sp2927
+    # UCID: tbb
     # Date: 20 Oct 2022
     def use(self):
         self.quantity -= 1
