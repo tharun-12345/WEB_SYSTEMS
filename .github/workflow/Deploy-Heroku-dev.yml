@@ -17,7 +17,7 @@ jobs:
       DB_URL: ${{secrets.DB_URL}}
       PORT: 8080
       # change to the project directory you're deploying
-      WORKING_DIRECTORY: Flask_Sample
+      WORKING_DIRECTORY: flask_sample
     defaults:
       run:
           working-directory: ${{env.WORKING_DIRECTORY}}
@@ -68,5 +68,5 @@ jobs:
           process_type: web
           
    
-          
+  
 ### ⬆ IMPORTANT PART ⬆ ###
