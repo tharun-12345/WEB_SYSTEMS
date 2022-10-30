@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "Flask_Sample"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
