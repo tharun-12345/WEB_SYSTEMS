@@ -5,6 +5,7 @@ from flask import Blueprint, request
 geo = Blueprint("geo", __name__, url_prefix='/geo')
 # TODO DO NOT EDIT
 # these are javascript endpoints used from country_state_selector.html
+# UCID : tbb  Date : 12-04-2022 
 @geo.route("/countries")
 def countries():
     # extract just the data we need for our <select> options
@@ -17,3 +18,4 @@ def states():
     status = list(map(lambda s: {"name": s.name, "code": s.code.split("-")[1]}, 
         list(pycountry.subdivisions.get(country_code=request.args.get('country_code', 'US')))))
     return json.dumps(status)
+# UCID : tbb  Date : 12-04-2022 
