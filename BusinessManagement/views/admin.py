@@ -40,6 +40,8 @@ def importCSV():
             # Note: this reads the file as a stream instead of requiring us to save it
             stream = io.TextIOWrapper(file.stream._file, "UTF8", newline=None)
             # TODO importcsv-2 read the csv file stream as a dict
+            # UCID : tbb  #
+        # Date : 12-04-2022 #
             for row in csv.DictReader(stream, delimiter=','):
                 # print(row) #example
                 # TODO importcsv-3 extract company data and append to company list as a dict only with company data
