@@ -123,4 +123,4 @@ class DB:
 
 if __name__ == "__main__":
     # verifies connection works
-    print(DB.selectOne("SELECT 'test' from dual")
+    print(DB.selectOne("SELECT 'test' from dual"))
