@@ -1,4 +1,3 @@
-
 # from https://towardsdatascience.com/deploy-to-google-cloud-run-using-github-actions-590ecf957af0
 import os
 import sys
@@ -18,27 +17,9 @@ def create_app(config_filename=''):
     with app.app_context():
         from views.hello import hello
         app.register_blueprint(hello)
-        from views.sample import sample
-        app.register_blueprint(sample)
         return app
 
 
 app = create_app()
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
-    
-import os
-
-from flask import Flask, request
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    name = request.args.get('name', 'World')
-    return f'Hello {name}!'
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 3000)))
