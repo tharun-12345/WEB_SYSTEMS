@@ -1,5 +1,15 @@
+
 venv
 .idea
 .vscode
 __pycache__
 .DS_Store
+
+.idea
+__pycache__
+.vscode
+venv
+.DS_Store
+.pytest_cache
+.env
+
