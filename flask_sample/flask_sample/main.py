@@ -5,7 +5,7 @@ from flask import Flask
 from dotenv import load_dotenv
 load_dotenv()
 
-# added so modules can be found between the two different lookup states:
+# added so modules can be found between the two different lookup states
 # from tests and from regular running of the app
 CURR_DIR = os.path.dirname(os.path.abspath(__file__))
 print(CURR_DIR)
