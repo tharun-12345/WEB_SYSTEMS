@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - dev
-      - flask_flash_messages
 
 # Your workflows jobs.
 jobs:
