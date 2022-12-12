@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - dev
-      - Miniproject-2
+      - flask_cleanup
 
 # Your workflows jobs.
 jobs:
