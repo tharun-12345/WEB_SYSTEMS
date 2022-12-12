@@ -7,11 +7,11 @@ on:
   push:
     branches:
       - dev
-      - flask_cleanup
+      - Miniproject-2
 
 # Your workflows jobs.
 jobs:
-  build:
+  build
     runs-on: ubuntu-latest
     env:
       DB_URL: ${{secrets.DB_URL}}
