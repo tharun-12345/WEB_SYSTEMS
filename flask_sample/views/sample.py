@@ -90,6 +90,7 @@ def edit():
                 row = result.row
         except Exception as e:
             # TODO make this user-friendly
+
             flash(e, "danger")
     return render_template("edit_sample.html", row=row)
 
@@ -97,6 +98,7 @@ def edit():
 def delete():
     id = request.args.get("id")
     # make a mutable dict
+
     args = {**request.args}
     if id:
         try:
@@ -105,10 +107,14 @@ def delete():
                 flash("Deleted record", "success")
         except Exception as e:
             # TODO make this user-friendly
+
             flash(e, "danger")
         # TODO pass along feedback
 
-        # remove the id args since we don't need it in the list route
-        # but we want to persist the other query args
+
+        # remove the id args since we don't need it in the list route.
+        
+        # but we want to persist the other query args.
+
         del args["id"]
     return redirect(url_for("sample.list", **args))
