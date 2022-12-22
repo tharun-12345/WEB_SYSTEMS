@@ -23,14 +23,14 @@ def item():
             except Exception as e:
                 print("Error updating item", e)
                 flash(f"Error updating item {form.name.data}", "danger")
-        else: # it's a create 
+        else: # it's a create
             try:
                 result = DB.update("""INSERT INTO IS601_S_Products (name, description, category, stock, unit_price, visibility) 
                 VALUES (%s,%s,%s,%s,%s, %s)""",
                 form.name.data, form.description.data, form.category.data, form.stock.data, form.unit_price.data, 1 if form.visibility.data else 0)
                 if result.status:
                     flash(f"Created {form.name.data}", "success")
-                    form = ItemForm() #clear form
+                    form = ItemForm() # clear form
             except Exception as e:
                 print("Error creating item", e)
                 flash(f"Error creating item {form.name.data}", "danger")
@@ -75,7 +75,7 @@ def items():
 def shop_list():
     rows = []
     args = []
-    ##UCID: tbb Date Dec 21st
+    ##UCID: mk994 Date Dec 17th
     name = request.args.get("name")
     category = request.args.get("category")
     price = request.args.get("price")
@@ -116,7 +116,7 @@ def cart():
                 if result.status and result.row:
                     cost = result.row["unit_price"]
                     name = result.row["name"]
-                    if item_id: #update from cart
+                    if item_id: # update from cart
                         result = DB.insertOne("""
                         UPDATE IS601_S_Cart SET
                         desired_quantity = %(quantity)s,
@@ -149,7 +149,7 @@ def cart():
                 print("Error updating cart" ,e)
                 flash("Error updating cart", "danger")
         else:
-            #assuming delete
+            # assuming delete
             try:
                 result = DB.delete("DELETE FROM IS601_S_Cart where product_id = %s and user_id = %s", id, user_id)
                 if result.status:
@@ -182,9 +182,9 @@ def purchase():
     quantity = 0
     order = {}
     try:
-        DB.getDB().autocommit = False #make a transaction
+        DB.getDB().autocommit = False # make a transaction
 
-        #get cart to verify
+        # get cart to verify
         
         result = DB.selectAll("""SELECT c.id, item_id, name, c.quantity, i.stock, c.cost as cart_cost, i.cost as item_cost, (c.quantity * c.cost) as subtotal 
         FROM IS601_S_Cart c JOIN IS601_S_Items i on c.item_id = i.id
@@ -192,7 +192,7 @@ def purchase():
         """, current_user.get_id())
         if result.status and result.rows:
             cart = result.rows
-        #verify cart
+        # verify cart
         has_error = False
         for item in cart:
             if item["quantity"] > item["stock"]:
@@ -203,13 +203,13 @@ def purchase():
                 has_error = True
             total += int(item["subtotal"] or 0)
             quantity += int(item["quantity"])
-        #check can afford
+        # check can afford
         if not has_error:
             balance = int(current_user.get_balance())
             if total > balance:
                 flash("You can't afford to make this purchase", "danger")
                 has_error = True
-        #create order data
+        # create order data
         order_id = -1
         if not has_error:
             result = DB.insertOne("""INSERT INTO IS601_S_Orders (total_spent, number_of_items, user_id)
@@ -223,7 +223,7 @@ def purchase():
                 order["order_id"] = order_id
                 order["total"] = total
                 order["quantity"] = quantity
-        #record order history
+        # record order history
         if order_id > -1 and not has_error:
             # Note: Not really an insert 1, it'll copy data from Table B into Table A
             result = DB.insertOne("""INSERT INTO IS601_S_OrderItems (quantity, cost, order_id, item_id, user_id)
@@ -233,7 +233,7 @@ def purchase():
                 flash("Error recording order history", "danger")
                 has_error = True
                 DB.getDB().rollback()
-        #update stock based on cart data
+        # update stock based on cart data
         if not has_error:
             result = DB.update("""
             UPDATE IS601_S_Items 
@@ -245,9 +245,9 @@ def purchase():
                 has_error = True
                 DB.getDB().rollback()
 
-        #apply purchase (specific to my project)
+        # apply purchase (specific to my project)
         if not has_error:
-            #here I'm using a known item_id to update my player's stats
+            # here I'm using a known item_id to update my player's stats
             attrs = [("life", -1), ("speed", -2), ("fire_rate", -3), ("damage", -4), ("radius", -5)]
             for attr, target_id in attrs:
                 try:
@@ -266,7 +266,7 @@ def purchase():
                     "target_id": int(target_id)})
                 except Exception as e:
                     print(f"Error updating attribute {attr}", e)
-        #empty the cart
+        # empty the cart
         if not has_error:
             result = DB.delete("DELETE FROM IS601_S_Cart WHERE user_id = %s", current_user.get_id())
     
