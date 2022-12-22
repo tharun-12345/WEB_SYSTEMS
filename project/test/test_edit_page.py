@@ -39,5 +39,5 @@ def test_edit_page(client):
     form = soup.form
     ele = form.select("[name='value']")[0]
     print(ele)
-    # for easier debugging run pytest with the -rP flags
+    # for easier debugging run pytest with the rp flags
     assert ele.get("value") == "tcval"
