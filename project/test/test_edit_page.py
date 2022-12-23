@@ -35,9 +35,9 @@ def test_edit_page(client):
     response = client.get("/sample/edit?id=-1")
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(response.data, 'html.parser')
-
+   
     form = soup.form
     ele = form.select("[name='value']")[0]
     print(ele)
-    # for easier debugging run pytest with the rp flags
+    # for easier debugging run pytest with the -rP flags
     assert ele.get("value") == "tcval"

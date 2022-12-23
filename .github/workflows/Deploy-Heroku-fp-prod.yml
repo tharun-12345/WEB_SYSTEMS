@@ -1,7 +1,7 @@
 # Your workflow name.
 name: Deploy to heroku prod.
 
-# Run workflow on every push to master branch.
+# Run workflow on every push to master branch
 
 on:
   push:
@@ -16,14 +16,14 @@ jobs:
       DB_URL: ${{secrets.DB_URL}}
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       PORT: 8080
-      # change to the project directory you're deploying
+      # change to the project directory you're deploying  
       WORKING_DIRECTORY: project
     defaults:
       run:
           working-directory: ${{env.WORKING_DIRECTORY}}
     
     steps:
-      # Check-out your repository.
+      # Check-out your repository
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run tests
@@ -32,7 +32,7 @@ jobs:
 ### ⬇ IMPORTANT PART ⬇ ###
 
       - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
-        uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
+        uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is)
         with:
           # Below you must provide variables for your Heroku app.
 
